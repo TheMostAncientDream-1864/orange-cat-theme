@@ -19,8 +19,8 @@ Description: A Windows port and extension of the 'rs.ui' concept for RStudio Des
     backups, non-destructive patching, rollback restore routines, dry-run verification, and
     detailed status diagnostic reporting.
 License: MIT + file LICENSE
-URL: https://github.com/grcatlin/rs.ui
-BugReports: https://github.com/grcatlin/rs.ui/issues
+URL: https://github.com/TheMostAncientDream-1864/orange-cat-theme
+BugReports: https://github.com/TheMostAncientDream-1864/orange-cat-theme/issues
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
@@ -69,7 +69,8 @@ Standard .rstheme files in RStudio only style the Ace editor. rs.ui.windows cust
 
 ## Installation
 \`\`\`r
-remotes::install_github("user/rs.ui.windows")
+# Install rs.ui.windows directly from GitHub root
+remotes::install_github("TheMostAncientDream-1864/orange-cat-theme")
 \`\`\`
 
 ## Usage

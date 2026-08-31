@@ -38,14 +38,14 @@ Standard `.rstheme` files in RStudio only style the Ace code editor. **`rs.ui.wi
 
 ## 📦 Installation
 
-Install `rs.ui.windows` from GitHub or local source using `remotes` or `devtools`:
+Install `rs.ui.windows` directly from GitHub using `remotes` or `devtools`:
 
 ```r
 # Install remotes if needed
 if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")
 
-# Install rs.ui.windows
-remotes::install_github("user/rs.ui.windows")
+# Install rs.ui.windows directly from GitHub repository root
+remotes::install_github("TheMostAncientDream-1864/orange-cat-theme")
 ```
 
 ---
@@ -132,14 +132,15 @@ Right click your R terminal or RStudio shortcut -> **Run as administrator**, the
 
 ---
 
-## 📂 File Architecture
+## 📂 Repository Structure
 
 ```text
-rs.ui.windows/
+orange-cat-theme/
 │
-├── DESCRIPTION               # R package metadata
+├── DESCRIPTION               # R package metadata (Package: rs.ui.windows)
 ├── NAMESPACE                 # Exported functions & imports
-├── README.md                 # Documentation
+├── README.md                 # Complete documentation & usage instructions
+├── .Rbuildignore             # Build ignore file for R CMD build
 │
 ├── R/
 │   ├── rs_ui.R               # Main user entry points (rs.ui, rs.ui.status, rs.ui.backup)
@@ -167,16 +168,16 @@ rs.ui.windows/
 
 ---
 
-## ❓ Troubleshooting
+## ❓ Exported Functions Summary
 
-### 1. "RStudio is currently running"
-Close all RStudio windows before applying the patch so file locks are released.
-
-### 2. "Write permission denied"
-RStudio in `C:\Program Files` requires Administrator elevation. Launch PowerShell as Administrator and run the command shown in the error prompt.
-
-### 3. RStudio updated to a new version
-When RStudio updates, it installs a fresh `resources/` folder. Run `rs.ui.status()` to verify, then run `rs.ui(main_color = "#dc6601")` to re-apply the theme and mascot to the new version.
+| Function | Purpose | Example |
+| :--- | :--- | :--- |
+| `rs.ui(main_color = "#dc6601")` | Applies custom color theme & embeds Orange Pixel Cat | `rs.ui(main_color = "#e06c75")` |
+| `rs.ui.status()` | Comprehensive status & diagnostics for RStudio on Windows | `rs.ui.status()` |
+| `rs.ui.restore()` | Restores pristine un-modded RStudio UI files from backup | `rs.ui.restore()` |
+| `rs.ui.detect()` | Discovers RStudio installation path & architecture | `rs.ui.detect()` |
+| `rs.ui.backup()` | Creates SHA256-verified backup of RStudio UI files | `rs.ui.backup()` |
+| `rs.ui(dry_run = TRUE)` | Simulates patch validation without touching any system files | `rs.ui(dry_run = TRUE)` |
 
 ---
 

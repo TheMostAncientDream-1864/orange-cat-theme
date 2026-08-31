@@ -10,8 +10,8 @@ Description: A Windows port and extension of the 'rs.ui' concept for RStudio Des
     backups, non-destructive patching, rollback restore routines, dry-run verification, and
     detailed status diagnostic reporting.
 License: MIT + file LICENSE
-URL: https://github.com/grcatlin/rs.ui
-BugReports: https://github.com/grcatlin/rs.ui/issues
+URL: https://github.com/TheMostAncientDream-1864/orange-cat-theme
+BugReports: https://github.com/TheMostAncientDream-1864/orange-cat-theme/issues
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3

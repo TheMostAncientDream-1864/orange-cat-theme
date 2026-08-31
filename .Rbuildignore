@@ -1,0 +1,17 @@
+^\.git.*$
+^\.github.*$
+^src$
+^public$
+^node_modules$
+^package\.json$
+^package-lock\.json$
+^bun\.lock$
+^vite\.config\.ts$
+^tsconfig\.json$
+^tsconfig\..*\.json$
+^metadata\.json$
+^\.env.*$
+^index\.html$
+^rs\.ui\.windows$
+^\.eslintrc.*$
+^\.prettierrc.*$
