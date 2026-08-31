@@ -1,7 +1,7 @@
 test_that("Backup and restore lifecycle operates cleanly on mock RStudio directory", {
   # Create a sandbox directory representing RStudio layout
   temp_rstudio <- file.path(tempdir(), paste0("mock_rstudio_", as.integer(runif(1, 1000, 9999))))
-  www_dir <- file.path(temp_rstudio, "resources", "app", "resources", "www")
+  www_dir <- file.path(temp_rstudio, "resources", "app", "www")
   dir.create(www_dir, recursive = TRUE, showWarnings = FALSE)
 
   index_file <- file.path(www_dir, "index.htm")

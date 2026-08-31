@@ -26,7 +26,7 @@ export const InteractiveConsole: React.FC<Props> = ({
       id: '2',
       timestamp: '00:00:02',
       type: 'info',
-      text: 'Loading required package: rs.ui.windows (v0.1.0)',
+      text: 'Loading required package: rs.ui.windows (v0.1.1)',
     },
     {
       id: '3',
@@ -54,7 +54,8 @@ export const InteractiveConsole: React.FC<Props> = ({
       setTimeout(() => {
         addLog('step', '$detected: TRUE');
         addLog('step', '$rstudio_dir: "C:/Program Files/RStudio"');
-        addLog('step', '$index_htm: "C:/Program Files/RStudio/resources/app/resources/www/index.htm"');
+        addLog('step', '$index_htm: "C:/Program Files/RStudio/resources/app/www/index.htm"');
+        addLog('step', '$www_dir: "C:/Program Files/RStudio/resources/app/www"');
         addLog('step', '$architecture: "electron"');
         addLog('step', '$version: "2026.01.0"');
         addLog('success', '$status_message: "RStudio detected and resources are verified."');
@@ -63,7 +64,7 @@ export const InteractiveConsole: React.FC<Props> = ({
       addLog('warning', '--- DRY-RUN VERIFICATION MODE (No files modified) ---');
       setTimeout(() => {
         addLog('step', '✓ RStudio Desktop Windows installation located at: C:/Program Files/RStudio');
-        addLog('step', '✓ Architecture verified: Electron modern layout (resources/app/resources/www/index.htm)');
+        addLog('step', '✓ Architecture verified: Electron layout (resources/app/www/index.htm)');
         addLog('step', `✓ Target theme palette generated with main_color: ${palette.mainColor}`);
         addLog('step', '✓ Orange Pixel Cat embedded as Base64 Data URI (zero external network reliance)');
         addLog('step', '✓ Backup target prepared at: %LOCALAPPDATA%\\rs.ui.windows\\backups\\');

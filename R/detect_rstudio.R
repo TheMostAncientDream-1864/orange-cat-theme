@@ -81,46 +81,58 @@ rs.ui.detect <- function(custom_path = NULL) {
     norm_cand <- tryCatch(normalizePath(cand, winslash = "/", mustWork = FALSE), error = function(e) cand)
     if (!dir.exists(norm_cand)) next
 
-    # Check Electron path (RStudio 2022.07+ through 2026+)
-    electron_index <- file.path(norm_cand, "resources", "app", "resources", "www", "index.htm")
-    electron_www <- file.path(norm_cand, "resources", "app", "resources", "www")
-
-    if (file.exists(electron_index)) {
+    # 1. Check primary Electron path (RStudio Desktop 2022.07+ - 2026+): <rstudio_dir>/resources/app/www/index.htm
+    electron_index_1 <- file.path(norm_cand, "resources", "app", "www", "index.htm")
+    electron_www_1 <- file.path(norm_cand, "resources", "app", "www")
+    if (file.exists(electron_index_1)) {
       detected_info <- list(
         detected = TRUE,
-        rstudio_dir = norm_cand,
-        index_htm = electron_index,
-        www_dir = electron_www,
+        rstudio_dir = normalizePath(norm_cand, winslash = "/", mustWork = FALSE),
+        index_htm = normalizePath(electron_index_1, winslash = "/", mustWork = FALSE),
+        www_dir = normalizePath(electron_www_1, winslash = "/", mustWork = FALSE),
         architecture = "electron"
       )
       break
     }
 
-    # Check Qt legacy path (RStudio < 2022.07)
+    # 2. Check nested Electron path: <rstudio_dir>/resources/app/resources/www/index.htm
+    electron_index_2 <- file.path(norm_cand, "resources", "app", "resources", "www", "index.htm")
+    electron_www_2 <- file.path(norm_cand, "resources", "app", "resources", "www")
+    if (file.exists(electron_index_2)) {
+      detected_info <- list(
+        detected = TRUE,
+        rstudio_dir = normalizePath(norm_cand, winslash = "/", mustWork = FALSE),
+        index_htm = normalizePath(electron_index_2, winslash = "/", mustWork = FALSE),
+        www_dir = normalizePath(electron_www_2, winslash = "/", mustWork = FALSE),
+        architecture = "electron"
+      )
+      break
+    }
+
+    # 3. Check root resources Electron path: <rstudio_dir>/resources/www/index.htm
+    electron_index_3 <- file.path(norm_cand, "resources", "www", "index.htm")
+    electron_www_3 <- file.path(norm_cand, "resources", "www")
+    if (file.exists(electron_index_3)) {
+      detected_info <- list(
+        detected = TRUE,
+        rstudio_dir = normalizePath(norm_cand, winslash = "/", mustWork = FALSE),
+        index_htm = normalizePath(electron_index_3, winslash = "/", mustWork = FALSE),
+        www_dir = normalizePath(electron_www_3, winslash = "/", mustWork = FALSE),
+        architecture = "electron"
+      )
+      break
+    }
+
+    # 4. Check legacy Qt path (RStudio < 2022.07): <rstudio_dir>/www/index.htm
     qt_index <- file.path(norm_cand, "www", "index.htm")
     qt_www <- file.path(norm_cand, "www")
-
     if (file.exists(qt_index)) {
       detected_info <- list(
         detected = TRUE,
-        rstudio_dir = norm_cand,
-        index_htm = qt_index,
-        www_dir = qt_www,
+        rstudio_dir = normalizePath(norm_cand, winslash = "/", mustWork = FALSE),
+        index_htm = normalizePath(qt_index, winslash = "/", mustWork = FALSE),
+        www_dir = normalizePath(qt_www, winslash = "/", mustWork = FALSE),
         architecture = "qt"
-      )
-      break
-    }
-
-    # Check root resources www
-    alt_index <- file.path(norm_cand, "resources", "www", "index.htm")
-    alt_www <- file.path(norm_cand, "resources", "www")
-    if (file.exists(alt_index)) {
-      detected_info <- list(
-        detected = TRUE,
-        rstudio_dir = norm_cand,
-        index_htm = alt_index,
-        www_dir = alt_www,
-        architecture = "electron"
       )
       break
     }

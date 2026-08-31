@@ -10,7 +10,7 @@ export const PACKAGE_FILES: PackageFile[] = [
     content: `Package: rs.ui.windows
 Type: Package
 Title: Custom UI Theming and Orange Pixel Cat for RStudio Desktop on Windows
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: person("rs.ui", "Contributors", email = "rs.ui.windows@example.com", role = c("aut", "cre"))
 Description: A Windows port and extension of the 'rs.ui' concept for RStudio Desktop.
     Allows users to customize the full RStudio Desktop Windows UI theme with custom accent
@@ -205,27 +205,53 @@ rs.ui.detect <- function(custom_path = NULL) {
     norm_cand <- tryCatch(normalizePath(cand, winslash = "/", mustWork = FALSE), error = function(e) cand)
     if (!dir.exists(norm_cand)) next
 
-    electron_index <- file.path(norm_cand, "resources", "app", "resources", "www", "index.htm")
-    electron_www <- file.path(norm_cand, "resources", "app", "resources", "www")
-
-    if (file.exists(electron_index)) {
+    # 1. Primary Electron layout (2022.07 - 2026+)
+    electron_index_1 <- file.path(norm_cand, "resources", "app", "www", "index.htm")
+    if (file.exists(electron_index_1)) {
       detected_info <- list(
         detected = TRUE,
-        rstudio_dir = norm_cand,
-        index_htm = electron_index,
-        www_dir = electron_www,
+        rstudio_dir = normalizePath(norm_cand, winslash = "/", mustWork = FALSE),
+        index_htm = normalizePath(electron_index_1, winslash = "/", mustWork = FALSE),
+        www_dir = normalizePath(file.path(norm_cand, "resources", "app", "www"), winslash = "/", mustWork = FALSE),
         architecture = "electron"
       )
       break
     }
 
+    # 2. Nested Electron layout
+    electron_index_2 <- file.path(norm_cand, "resources", "app", "resources", "www", "index.htm")
+    if (file.exists(electron_index_2)) {
+      detected_info <- list(
+        detected = TRUE,
+        rstudio_dir = normalizePath(norm_cand, winslash = "/", mustWork = FALSE),
+        index_htm = normalizePath(electron_index_2, winslash = "/", mustWork = FALSE),
+        www_dir = normalizePath(file.path(norm_cand, "resources", "app", "resources", "www"), winslash = "/", mustWork = FALSE),
+        architecture = "electron"
+      )
+      break
+    }
+
+    # 3. Root resources layout
+    electron_index_3 <- file.path(norm_cand, "resources", "www", "index.htm")
+    if (file.exists(electron_index_3)) {
+      detected_info <- list(
+        detected = TRUE,
+        rstudio_dir = normalizePath(norm_cand, winslash = "/", mustWork = FALSE),
+        index_htm = normalizePath(electron_index_3, winslash = "/", mustWork = FALSE),
+        www_dir = normalizePath(file.path(norm_cand, "resources", "www"), winslash = "/", mustWork = FALSE),
+        architecture = "electron"
+      )
+      break
+    }
+
+    # 4. Legacy Qt layout (< 2022.07)
     qt_index <- file.path(norm_cand, "www", "index.htm")
     if (file.exists(qt_index)) {
       detected_info <- list(
         detected = TRUE,
-        rstudio_dir = norm_cand,
-        index_htm = qt_index,
-        www_dir = file.path(norm_cand, "www"),
+        rstudio_dir = normalizePath(norm_cand, winslash = "/", mustWork = FALSE),
+        index_htm = normalizePath(qt_index, winslash = "/", mustWork = FALSE),
+        www_dir = normalizePath(file.path(norm_cand, "www"), winslash = "/", mustWork = FALSE),
         architecture = "qt"
       )
       break
@@ -611,6 +637,59 @@ body::before,
 })`,
   },
   {
+    path: 'tests/testthat/test-detect.R',
+    name: 'test-detect.R',
+    category: 'tests',
+    language: 'r',
+    description: 'Unit tests verifying RStudio installation discovery and path resolution across Electron and Qt layout structures.',
+    content: `test_that("rs.ui.detect resolves standard Electron resources/app/www layout", {
+  temp_rstudio <- file.path(tempdir(), paste0("mock_rs_electron_", as.integer(runif(1, 10000, 99999))))
+  www_dir <- file.path(temp_rstudio, "resources", "app", "www")
+  dir.create(www_dir, recursive = TRUE, showWarnings = FALSE)
+
+  index_file <- file.path(www_dir, "index.htm")
+  writeLines("<!DOCTYPE html><html><head></head><body></body></html>", index_file)
+
+  pkg_json <- file.path(temp_rstudio, "resources", "app", "package.json")
+  writeLines('{"name": "rstudio", "version": "2026.01.0"}', pkg_json)
+
+  detected <- rs.ui.detect(custom_path = temp_rstudio)
+
+  expect_true(detected$detected)
+  expect_equal(normalizePath(detected$rstudio_dir, winslash = "/"), normalizePath(temp_rstudio, winslash = "/"))
+  expect_equal(normalizePath(detected$index_htm, winslash = "/"), normalizePath(index_file, winslash = "/"))
+  expect_equal(normalizePath(detected$www_dir, winslash = "/"), normalizePath(www_dir, winslash = "/"))
+  expect_equal(detected$architecture, "electron")
+  expect_equal(detected$version, "2026.01.0")
+
+  unlink(temp_rstudio, recursive = TRUE)
+})
+
+test_that("rs.ui.detect resolves alternate and legacy layouts in proper priority", {
+  temp_nested <- file.path(tempdir(), paste0("mock_rs_nested_", as.integer(runif(1, 10000, 99999))))
+  nested_www <- file.path(temp_nested, "resources", "app", "resources", "www")
+  dir.create(nested_www, recursive = TRUE, showWarnings = FALSE)
+  writeLines("<html></html>", file.path(nested_www, "index.htm"))
+
+  res_nested <- rs.ui.detect(custom_path = temp_nested)
+  expect_true(res_nested$detected)
+  expect_equal(res_nested$architecture, "electron")
+  expect_equal(normalizePath(res_nested$index_htm, winslash = "/"), normalizePath(file.path(nested_www, "index.htm"), winslash = "/"))
+  unlink(temp_nested, recursive = TRUE)
+
+  temp_qt <- file.path(tempdir(), paste0("mock_rs_qt_", as.integer(runif(1, 10000, 99999))))
+  qt_www <- file.path(temp_qt, "www")
+  dir.create(qt_www, recursive = TRUE, showWarnings = FALSE)
+  writeLines("<html></html>", file.path(qt_www, "index.htm"))
+
+  res_qt <- rs.ui.detect(custom_path = temp_qt)
+  expect_true(res_qt$detected)
+  expect_equal(res_qt$architecture, "qt")
+  expect_equal(normalizePath(res_qt$index_htm, winslash = "/"), normalizePath(file.path(qt_www, "index.htm"), winslash = "/"))
+  unlink(temp_qt, recursive = TRUE)
+})`,
+  },
+  {
     path: 'tests/testthat/test-backup-restore.R',
     name: 'test-backup-restore.R',
     category: 'tests',
@@ -618,7 +697,7 @@ body::before,
     description: 'Integration test mocking RStudio directory backup and dry-run.',
     content: `test_that("Backup and restore lifecycle operates cleanly", {
   temp_rstudio <- file.path(tempdir(), "mock_rstudio")
-  www_dir <- file.path(temp_rstudio, "resources", "app", "resources", "www")
+  www_dir <- file.path(temp_rstudio, "resources", "app", "www")
   dir.create(www_dir, recursive = TRUE, showWarnings = FALSE)
   index_file <- file.path(www_dir, "index.htm")
   writeLines("<html><head></head><body></body></html>", index_file)

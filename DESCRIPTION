@@ -1,7 +1,7 @@
 Package: rs.ui.windows
 Type: Package
 Title: Custom UI Theming and Orange Pixel Cat for RStudio Desktop on Windows
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: person("rs.ui", "Contributors", email = "rs.ui.windows@example.com", role = c("aut", "cre"))
 Description: A Windows port and extension of the 'rs.ui' concept for RStudio Desktop.
     Allows users to customize the full RStudio Desktop Windows UI theme with custom accent
