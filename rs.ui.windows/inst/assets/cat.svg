@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 18" width="48" height="36" shape-rendering="crispEdges">
+  <!-- Orange Pixel Cat for RStudio UI (rs.ui.windows) -->
+  <defs>
+    <style>
+      .o { fill: #1e130a; } /* Outline / Dark */
+      .f { fill: #dc6601; } /* Primary Orange Fur */
+      .l { fill: #ff8e32; } /* Light Orange Highlight */
+      .s { fill: #b84f00; } /* Dark Orange Shading */
+      .w { fill: #fff5eb; } /* White muzzle & chest */
+      .p { fill: #ff7597; } /* Pink inner ear & nose */
+      .e { fill: #0f0a06; } /* Eye pupil */
+      .h { fill: #ffffff; } /* Eye sparkle highlight */
+    </style>
+  </defs>
+
+  <!-- Row 0: Ear tips -->
+  <rect x="3" y="1" width="3" height="1" class="o"/>
+  <rect x="18" y="1" width="3" height="1" class="o"/>
+
+  <!-- Row 1 -->
+  <rect x="2" y="2" width="1" height="3" class="o"/>
+  <rect x="3" y="2" width="3" height="1" class="f"/>
+  <rect x="6" y="2" width="1" height="1" class="o"/>
+  <rect x="17" y="2" width="1" height="1" class="o"/>
+  <rect x="18" y="2" width="3" height="1" class="f"/>
+  <rect x="21" y="2" width="1" height="3" class="o"/>
+
+  <!-- Row 2: Inner Ears & Top Head -->
+  <rect x="3" y="3" width="1" height="2" class="f"/>
+  <rect x="4" y="3" width="2" height="2" class="p"/>
+  <rect x="6" y="3" width="1" height="1" class="o"/>
+  <rect x="7" y="3" width="10" height="1" class="o"/>
+  <rect x="17" y="3" width="1" height="1" class="o"/>
+  <rect x="18" y="3" width="2" height="2" class="p"/>
+  <rect x="20" y="3" width="1" height="2" class="f"/>
+
+  <!-- Row 3: Head top fur -->
+  <rect x="7" y="4" width="10" height="1" class="l"/>
+
+  <!-- Row 4: Forehead -->
+  <rect x="1" y="5" width="1" height="7" class="o"/>
+  <rect x="2" y="5" width="20" height="2" class="f"/>
+  <rect x="22" y="5" width="1" height="7" class="o"/>
+  <!-- Forehead Tabby Stripes -->
+  <rect x="11" y="4" width="2" height="3" class="s"/>
+  <rect x="7" y="5" width="2" height="2" class="s"/>
+  <rect x="15" y="5" width="2" height="2" class="s"/>
+
+  <!-- Row 6: Eyes & Cheeks -->
+  <rect x="2" y="7" width="3" height="3" class="f"/>
+  <!-- Left Eye -->
+  <rect x="5" y="7" width="4" height="3" class="e"/>
+  <rect x="5" y="7" width="2" height="2" class="h"/>
+  <!-- Bridge of nose -->
+  <rect x="9" y="7" width="6" height="2" class="f"/>
+  <rect x="11" y="7" width="2" height="1" class="s"/>
+  <!-- Right Eye -->
+  <rect x="15" y="7" width="4" height="3" class="e"/>
+  <rect x="15" y="7" width="2" height="2" class="h"/>
+  <rect x="19" y="7" width="3" height="3" class="f"/>
+
+  <!-- Row 8: Nose & Muzzle -->
+  <rect x="2" y="9" width="5" height="3" class="f"/>
+  <rect x="17" y="9" width="5" height="3" class="f"/>
+  <!-- Pink Nose -->
+  <rect x="11" y="9" width="2" height="1" class="p"/>
+  <!-- White Muzzle -->
+  <rect x="7" y="10" width="10" height="2" class="w"/>
+  <!-- Whisker Dots & Mouth -->
+  <rect x="8" y="10" width="1" height="1" class="o"/>
+  <rect x="15" y="10" width="1" height="1" class="o"/>
+  <rect x="11" y="11" width="2" height="1" class="o"/>
+
+  <!-- Whiskers Left & Right -->
+  <rect x="0" y="8" width="2" height="1" class="o"/>
+  <rect x="0" y="10" width="2" height="1" class="o"/>
+  <rect x="22" y="8" width="2" height="1" class="o"/>
+  <rect x="22" y="10" width="2" height="1" class="o"/>
+
+  <!-- Row 11: Chin & Collar -->
+  <rect x="2" y="12" width="2" height="1" class="o"/>
+  <rect x="4" y="12" width="16" height="1" class="w"/>
+  <rect x="20" y="12" width="2" height="1" class="o"/>
+
+  <!-- Row 12: Paws / Base -->
+  <rect x="3" y="13" width="2" height="3" class="o"/>
+  <rect x="5" y="13" width="4" height="2" class="w"/>
+  <rect x="9" y="13" width="6" height="2" class="f"/>
+  <rect x="15" y="13" width="4" height="2" class="w"/>
+  <rect x="19" y="13" width="2" height="3" class="o"/>
+
+  <!-- Row 14: Paw toes -->
+  <rect x="6" y="14" width="1" height="1" class="o"/>
+  <rect x="8" y="14" width="1" height="1" class="o"/>
+  <rect x="15" y="14" width="1" height="1" class="o"/>
+  <rect x="17" y="14" width="1" height="1" class="o"/>
+
+  <!-- Bottom Outline -->
+  <rect x="4" y="15" width="16" height="1" class="o"/>
+</svg>

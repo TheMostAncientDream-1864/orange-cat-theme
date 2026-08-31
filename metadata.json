@@ -1,0 +1,7 @@
+{
+  "name": "rs.ui.windows - RStudio Desktop Windows Customizer",
+  "description": "Windows port and customizer for RStudio Desktop UI with orange pixel cat integration, robust backup/restore, and CSS theming engine.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

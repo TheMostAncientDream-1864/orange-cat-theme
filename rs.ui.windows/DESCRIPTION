@@ -1,0 +1,27 @@
+Package: rs.ui.windows
+Type: Package
+Title: Custom UI Theming and Orange Pixel Cat for RStudio Desktop on Windows
+Version: 0.1.0
+Authors@R: person("rs.ui", "Contributors", email = "rs.ui.windows@example.com", role = c("aut", "cre"))
+Description: A Windows port and extension of the 'rs.ui' concept for RStudio Desktop.
+    Allows users to customize the full RStudio Desktop Windows UI theme with custom accent
+    colors, derivative palettes, and an embedded persistent orange pixel cat widget.
+    Includes automated discovery of RStudio installations on Windows, safe SHA256-verified
+    backups, non-destructive patching, rollback restore routines, dry-run verification, and
+    detailed status diagnostic reporting.
+License: MIT + file LICENSE
+URL: https://github.com/grcatlin/rs.ui
+BugReports: https://github.com/grcatlin/rs.ui/issues
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.3
+Depends:
+    R (>= 3.6.0)
+Imports:
+    jsonlite,
+    tools,
+    utils
+Suggests:
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+SystemRequirements: Windows 10 or Windows 11 (64-bit), RStudio Desktop

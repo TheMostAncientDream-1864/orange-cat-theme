@@ -1,0 +1,128 @@
+/* ==========================================================================
+   rs.ui.windows - Base RStudio UI Theme Template
+   Author: rs.ui.windows Contributors
+   Generated dynamically by rs.ui(main_color = "...")
+   ========================================================================== */
+
+:root {
+  --rs-ui-main: {{MAIN_COLOR}};
+  --rs-ui-light: {{LIGHT_COLOR}};
+  --rs-ui-dark: {{DARK_COLOR}};
+  --rs-ui-bg-tint: {{BG_TINT}};
+  --rs-ui-border: {{BORDER_COLOR}};
+  --rs-ui-hover: {{HOVER_COLOR}};
+  --rs-ui-active: {{ACTIVE_COLOR}};
+  --rs-ui-cat-data-uri: url("{{CAT_SVG_DATA_URI}}");
+}
+
+/* ==========================================================================
+   1. ORANGE PIXEL CAT PLACEMENT (Persistent in Top Header & Navigation)
+   ========================================================================== */
+
+/* Main Header Floating Pixel Cat (Top-Right menubar / shell area) */
+body::before,
+#rstudio_shell::before,
+#rstudio_container::before,
+.rstudio-themes-flat::before {
+  content: "" !important;
+  position: fixed !important;
+  top: 4px !important;
+  right: 86px !important;
+  width: 36px !important;
+  height: 27px !important;
+  background-image: var(--rs-ui-cat-data-uri) !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  image-rendering: pixelated !important;
+  image-rendering: -moz-crisp-edges !important;
+  image-rendering: crisp-edges !important;
+  z-index: 999999 !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  transition: transform 0.15s ease-in-out !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25)) !important;
+}
+
+body::before:hover,
+#rstudio_shell::before:hover,
+#rstudio_container::before:hover {
+  transform: translateY(-2px) scale(1.1) !important;
+}
+
+/* Optional cat presence badge in project status bar */
+.rstudio-themes-flat #rstudio_workbench_panel_navigation {
+  position: relative !important;
+}
+
+/* ==========================================================================
+   2. RSTUDIO WORKBENCH TABS & ACCENTS
+   ========================================================================== */
+
+/* Active Tab Highlight Line & Background Accent */
+.rstudio-themes-flat .gwt-TabLayoutPanelTab-selected,
+.rstudio-themes-default .gwt-TabLayoutPanelTab-selected {
+  border-top: 3px solid var(--rs-ui-main) !important;
+  border-bottom-color: transparent !important;
+  color: var(--rs-ui-main) !important;
+  font-weight: 600 !important;
+}
+
+/* Tab Hover */
+.rstudio-themes-flat .gwt-TabLayoutPanelTab:hover,
+.rstudio-themes-default .gwt-TabLayoutPanelTab:hover {
+  border-top: 2px solid var(--rs-ui-hover) !important;
+  color: var(--rs-ui-dark) !important;
+}
+
+/* Active Tab indicator dot / strip */
+.rstudio-themes-flat .gwt-TabLayoutPanelTabs {
+  border-bottom: 1px solid var(--rs-ui-border) !important;
+}
+
+/* ==========================================================================
+   3. TOOLBAR & HEADER BAR ACCENTS
+   ========================================================================== */
+
+/* Primary Action Buttons & Execute selection button */
+.rstudio-themes-flat .rstudio-toolbar button.active,
+.rstudio-themes-flat .rstudio-toolbar .gwt-PushButton-up-hovering {
+  border-color: var(--rs-ui-main) !important;
+  background-color: var(--rs-ui-bg-tint) !important;
+}
+
+/* Selected Menubar Items */
+.rstudio-themes-flat .gwt-MenuBar .gwt-MenuItem-selected {
+  background-color: var(--rs-ui-main) !important;
+  color: #ffffff !important;
+}
+
+/* ==========================================================================
+   4. CONSOLE & TERMINAL HEADER ACCENTS
+   ========================================================================== */
+
+.rstudio-themes-flat .window-title-bar,
+.rstudio-themes-flat .GWT-HeaderPanel {
+  border-top-color: var(--rs-ui-main) !important;
+}
+
+/* Pane Splitter Bars on Drag */
+.rstudio-themes-flat .gwt-SplitLayoutPanel-HDragger:hover,
+.rstudio-themes-flat .gwt-SplitLayoutPanel-VDragger:hover {
+  background-color: var(--rs-ui-main) !important;
+  opacity: 0.8 !important;
+}
+
+/* Progress bar & busy spinner accent */
+.rstudio-themes-flat .rstudio-busy-spinner,
+.rstudio-themes-flat .progress-bar-fill {
+  background-color: var(--rs-ui-main) !important;
+}
+
+/* Focus outline for search & inputs */
+.rstudio-themes-flat input:focus,
+.rstudio-themes-flat select:focus {
+  border-color: var(--rs-ui-main) !important;
+  outline: 1px solid var(--rs-ui-main) !important;
+  box-shadow: 0 0 0 2px var(--rs-ui-bg-tint) !important;
+}
